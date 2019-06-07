@@ -3,22 +3,22 @@ services:
   - docker
 
 before_install:
-  - docker build -t sdmiller7/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t sdmiller/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run sdmiller7/react-test npm run testCI
+  - docker run sdmiller/react-test npm run testCI
 
 after_success:
-  - docker build -t sdmiller7/multi-client ./client
-  - docker build -t sdmiller7/multi-nginx ./nginx
-  - docker build -t sdmiller7/multi-server ./server
-  - docker build -t sdmiller7/multi-worker ./worker
+  - docker build -t sdmiller/multi-client ./client
+  - docker build -t sdmiller/multi-nginx ./nginx
+  - docker build -t sdmiller/multi-server ./server
+  - docker build -t sdmiller/multi-worker ./worker
   # Login to docker CLI
   # basically, this pipes the Docker_Password into the --password-stdin on the other side of the pipe
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take those images and push them to docker hub
-  - docker push sdmiller7/multi-client
-  - docker push sdmiller7/multi-nginx
-  - docker push sdmiller7/multi-server
-  - docker push sdmiller7/multi-worker
+  - docker push sdmiller/multi-client
+  - docker push sdmiller/multi-nginx
+  - docker push sdmiller/multi-server
+  - docker push sdmiller/multi-worker
 
