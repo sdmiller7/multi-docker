@@ -6,7 +6,7 @@ before_install:
   - docker build -t sdmiller7/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run sdmiller7/react-test npm testCI
+  - docker run sdmiller7/react-test npm run testCI
 
 after_success:
   - docker build -t sdmiller7/multi-client ./client
