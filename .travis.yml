@@ -1,0 +1,17 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t sdmiller7/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run sdmiller7/react-test npm testCI
+
+after_success:
+  - docker build -t sdmiller7/multi-client ./client
+  - docker build -t sdmiller7/multi-nginx ./nginx
+  - docker build -t sdmiller7/multi-server ./server
+  - docker build -t sdmiller7/multi-worker ./worker
+  # Login to docker CLI
+  
